@@ -6,6 +6,11 @@ import { defineConfig } from 'vitest/config';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), legacy()],
+  server: {
+    fs: {
+      deny: ['**/.env', '**/.env.*', '**/*.{crt,pem}', '**/.git/**', '**/backend/**'],
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

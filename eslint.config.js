@@ -7,7 +7,7 @@ import globals from 'globals';
 export default [
   ...defineConfigWithVueTs(
     {
-      ignores: ['dist/**', 'android/**', 'ios/**', 'playwright-report/**', 'test-results/**', 'blob-report/**'],
+      ignores: ['backend/**', 'dist/**', 'android/**', 'ios/**', 'playwright-report/**', 'test-results/**', 'blob-report/**'],
     },
     js.configs.recommended,
     pluginVue.configs['flat/essential'],

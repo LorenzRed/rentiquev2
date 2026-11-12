@@ -1,9 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const baseURL = 'http://localhost:5173';
+const baseURL = 'http://127.0.0.1:5173';
 
 export default defineConfig({
   testDir: './tests/e2e',
+  timeout: 60_000,
+  expect: { timeout: 15_000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -11,6 +13,7 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    channel: process.env.PLAYWRIGHT_CHANNEL,
   },
   projects: [
     {
@@ -19,7 +22,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run dev -- --port 5173 --strictPort',
+    command: process.env.PLAYWRIGHT_PREVIEW
+      ? 'npm run preview -- --host 127.0.0.1 --port 5173 --strictPort'
+      : 'npm run dev -- --host 127.0.0.1 --port 5173 --strictPort',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
